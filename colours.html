@@ -1,0 +1,30 @@
+<body>
+	<h1>Colours</h1>
+	<p>This is a version of the colours tour from meteor.com with some slight additions. It's also using less.</p>
+	{{> colour_list}}
+</body>
+
+<template name="colour_list">
+	<ul>
+		{{#each colours}}
+			{{> colour_info}}
+		{{else}}
+			<li>No colours yet.</li>
+		{{/each}}
+	</ul>
+	<div class="footer">
+		<button class="like">Like!</button>
+		<button class="delete">Delete!</button>
+		<br />
+		<label for="new">New colour:</label> <input id="new" type="text" />
+	</div>
+</template>
+
+<template name="colour_info">
+	<li class="{{maybe_selected}}">
+		{{how_many}} {{name}}
+		{{#if likes}}
+			<b>{{likes}}</b>
+		{{/if}}
+	</li>
+</template>
