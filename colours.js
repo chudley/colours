@@ -19,11 +19,22 @@ if(Meteor.is_client){
 				console.log("Deleted " + colour.name + " (" + colour._id + ")");
 			}
 		},
-		'keyup #new': function(evt, text){
+		'keyup #new': function(evt){
 			if(evt.which == 13){
-				var colour = Colours.findOne({_id: Colours.insert({name: $('#new').val()})});
-
-				console.log("Added " + colour.name + " (" + colour._id + ")");
+				var text = $('#new').val();
+				if(text.length < 1) {
+					console.log('attempting empty string');
+					$('#message').html("That isn't a colour!");
+				}
+				else if(Colours.findOne({name: text})){
+					$('#message').html("Already there!");
+				}
+				else{
+					$('#message').html("");
+					$('#new').val("");
+					var colour = Colours.findOne({_id: Colours.insert({name: text})}); // Don't know an easier way to do this
+					console.log("Added " + colour.name + " (" + colour._id + ")");
+				}
 			}
 
 		}
